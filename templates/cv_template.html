@@ -146,14 +146,16 @@
         <div class="section-body">
           {% for job in cv.experience %}
           <article class="experience-item">
-            <div class="company-header">
-              <h3 class="company-name">{{ job.company }}</h3>
-              <span class="job-dates">{{ job.start_date | date_range(job.end_date) }}</span>
+            <div class="experience-item-head">
+              <div class="company-header">
+                <h3 class="company-name">{{ job.company }}</h3>
+                <span class="job-dates">{{ job.start_date | date_range(job.end_date) }}</span>
+              </div>
+              <p class="job-role">{{ job.role }}</p>
+              {% if job.employment_type %}
+              <p class="job-meta">{{ job.employment_type }}</p>
+              {% endif %}
             </div>
-            <p class="job-role">{{ job.role }}</p>
-            {% if job.employment_type %}
-            <p class="job-meta">{{ job.employment_type }}</p>
-            {% endif %}
             {% if job.responsibilities %}
             <ul class="job-bullets">
               {% for item in job.responsibilities %}

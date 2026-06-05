@@ -43,7 +43,7 @@ body {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 20px;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 2px solid var(--purple);
@@ -69,25 +69,27 @@ body {
 
 .photo-wrap {
   width: 150px;
-  height: 180px;
+  flex-shrink: 0;
+  line-height: 0;
   border-radius: 14px;
   overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
-  flex-shrink: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .photo-wrap .photo,
 .photo-wrap img {
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: auto;
+  max-height: 180px;
   object-fit: cover;
   object-position: center;
   display: block;
   border: none;
-  border-radius: 0;
+  border-radius: 14px;
   box-shadow: none;
-  background: #ffffff;
+  background: transparent;
+  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.12));
 }
 
 .name {
@@ -173,9 +175,18 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.section-experience {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
 .section-experience .section-body {
   border-bottom: none;
   padding-bottom: 0;
+}
+
+.section-experience .section-title {
+  margin-bottom: 4px;
 }
 
 /* ── Core expertise ── */
@@ -235,14 +246,21 @@ body {
 
 /* ── Experience cards ── */
 .experience-item {
-  break-inside: avoid;
-  page-break-inside: avoid;
+  break-inside: auto;
+  page-break-inside: auto;
   margin-bottom: 7px;
   padding: 6px 8px;
   background: #fafbfc;
   border: 1px solid var(--border);
   border-left: 3px solid var(--purple);
   border-radius: 4px;
+}
+
+.experience-item-head {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+  break-after: avoid;
 }
 
 .experience-item:last-child {
@@ -292,13 +310,15 @@ body {
   font-size: 13px;
   color: var(--text);
   list-style-type: disc;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  break-inside: auto;
+  page-break-inside: auto;
 }
 
 .job-bullets li {
   margin-bottom: 1px;
   line-height: 1.32;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .job-bullets li::marker {
@@ -342,15 +362,29 @@ body {
     break-after: avoid;
   }
 
-  .section,
-  .experience-item,
-  .company-header,
+  .section:not(.section-experience),
   .education-item {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
-  .job-bullets {
+  .section-experience {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .experience-item {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .experience-item-head,
+  .company-header {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .job-bullets li {
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -361,12 +395,13 @@ body {
   }
 
   .photo-wrap {
-    background: #ffffff;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
+    background: transparent;
+    box-shadow: none;
   }
 
   .photo-wrap img {
     box-shadow: none;
-    background: #ffffff;
+    background: transparent;
+    filter: none;
   }
 }
