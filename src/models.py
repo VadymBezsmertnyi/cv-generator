@@ -3,6 +3,15 @@
 from pydantic import BaseModel, Field, field_validator
 
 
+class CareerGrowthItem(BaseModel):
+    """An internal role progression within the same company."""
+
+    role: str
+    start_date: str
+    end_date: str
+    summary: str = ""
+
+
 class ExperienceItem(BaseModel):
     """A single professional experience entry."""
 
@@ -10,6 +19,8 @@ class ExperienceItem(BaseModel):
     role: str
     start_date: str
     end_date: str
+    employment_type: str = ""
+    career_growth: list[CareerGrowthItem] = Field(default_factory=list)
     responsibilities: list[str] = Field(default_factory=list)
 
     @field_validator("responsibilities", mode="before")

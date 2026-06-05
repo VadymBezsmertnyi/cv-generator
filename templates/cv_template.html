@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ cv.name }} — Resume</title>
-    <style>
-      {{ styles }}
-    </style>
+    <style>{{ styles | safe }}</style>
   </head>
   <body>
     <div class="cv">
@@ -77,20 +75,20 @@
       {% if cv.skills %}
       <section class="section section-skills">
         <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-list">
+        <div class="skills-grid">
           {% for group in skill_groups %}
             {% if cv.skills.get(group) %}
-            <div class="skill-row">
-              <span class="skill-label">{{ group }}</span>
-              <span class="skill-values">{{ cv.skills[group] | join(' · ') }}</span>
+            <div class="skill-card">
+              <h3 class="skill-card-title">{{ group }}</h3>
+              <p class="skill-card-values">{{ cv.skills[group] | join(' · ') }}</p>
             </div>
             {% endif %}
           {% endfor %}
           {% for group, items in cv.skills.items() %}
             {% if group not in skill_groups and items %}
-            <div class="skill-row">
-              <span class="skill-label">{{ group }}</span>
-              <span class="skill-values">{{ items | join(' · ') }}</span>
+            <div class="skill-card">
+              <h3 class="skill-card-title">{{ group }}</h3>
+              <p class="skill-card-values">{{ items | join(' · ') }}</p>
             </div>
             {% endif %}
           {% endfor %}
@@ -99,20 +97,50 @@
       {% endif %}
 
       {% if cv.current_position %}
-      <section class="section section-experience page-break-after">
+      <section class="section section-experience">
         <h2 class="section-title">Professional Experience</h2>
-        <article class="job job-current">
-          <h3 class="job-company">{{ cv.current_position.company }}</h3>
-          <div class="job-meta">
-            <span class="job-role">{{ cv.title | replace('\n', ' / ') }}</span>
+        <article class="job job-current experience-item">
+          <div class="job-header">
+            <div>
+              <h3 class="job-company">{{ cv.current_position.company }}</h3>
+              {% if cv.current_position.employment_type %}
+              <p class="job-type">{{ cv.current_position.employment_type }}</p>
+              {% endif %}
+            </div>
             <span class="job-dates">{{ cv.current_position.start_date | date_range(cv.current_position.end_date) }}</span>
           </div>
+
+          {% if cv.current_position.career_growth %}
+          <div class="career-growth">
+            <h4 class="career-growth-title">Career Growth</h4>
+            <div class="career-timeline">
+              {% for step in cv.current_position.career_growth %}
+              <div class="growth-item role-block">
+                <div class="growth-marker"></div>
+                <div class="growth-body">
+                  <div class="growth-header">
+                    <span class="growth-role">{{ step.role }}</span>
+                    <span class="growth-dates">{{ step.start_date | date_range(step.end_date) }}</span>
+                  </div>
+                  {% if step.summary %}
+                  <p class="growth-summary">{{ step.summary }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
           {% if cv.current_position.responsibilities %}
-          <ul class="job-bullets">
-            {% for item in cv.current_position.responsibilities[:6] %}
-            <li>{{ item }}</li>
-            {% endfor %}
-          </ul>
+          <div class="current-highlights">
+            <h4 class="highlights-title">Key Contributions</h4>
+            <ul class="job-bullets">
+              {% for item in cv.current_position.responsibilities[:5] %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
           {% endif %}
         </article>
       </section>
@@ -120,13 +148,15 @@
 
       {# ── Page 2 ── #}
       {% if cv.previous_experience %}
-      <section class="section section-experience">
-        <h2 class="section-title section-title-continued">Professional Experience</h2>
+      <section class="section section-experience page-break-before">
         {% for company, roles in cv.previous_experience | groupby('company') %}
-        <article class="job job-previous">
+        <article class="job job-previous experience-item">
+          {% if loop.first %}
+          <h2 class="section-title">Previous Experience</h2>
+          {% endif %}
           <h3 class="job-company">{{ company }}</h3>
           {% for job in roles %}
-          <div class="role-block{% if not loop.first %} role-block-nested{% endif %}">
+          <div class="role-block">
             <div class="job-meta">
               <span class="job-role">{{ job.role }}</span>
               <span class="job-dates">{{ job.start_date | date_range(job.end_date) }}</span>
@@ -149,7 +179,7 @@
       <section class="section">
         <h2 class="section-title">Education</h2>
         {% for edu in cv.education %}
-        <article class="education-item">
+        <article class="education-item experience-item">
           <div class="education-row">
             <div class="education-main">
               <h3 class="education-institution">{{ edu.institution }}</h3>

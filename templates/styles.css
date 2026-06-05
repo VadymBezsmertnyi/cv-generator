@@ -1,17 +1,19 @@
-/* Senior engineer resume — ATS-friendly, print-optimized */
+/* Premium senior engineer resume — ATS-friendly, print-optimized */
 
 :root {
   --navy: #0f172a;
   --text: #334155;
   --muted: #64748b;
   --border: #e2e8f0;
+  --surface: #f8fafc;
   --accent: #2563eb;
+  --accent-soft: #eff6ff;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 @page {
   size: A4;
-  margin: 14mm 16mm;
+  margin: 12mm 14mm;
 }
 
 *,
@@ -23,14 +25,14 @@
 }
 
 html {
-  font-size: 9.5pt;
+  font-size: 9.25pt;
 }
 
 body {
   font-family: var(--font);
   color: var(--text);
   background: #ffffff;
-  line-height: 1.45;
+  line-height: 1.4;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -44,33 +46,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
+  gap: 16px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--navy);
 }
 
 .name {
-  font-size: 20pt;
+  font-size: 19pt;
   font-weight: 700;
   color: var(--navy);
   letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 4px;
-}
-
-.headline {
-  font-size: 11pt;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.3;
+  line-height: 1.12;
   margin-bottom: 3px;
 }
 
+.headline {
+  font-size: 10.5pt;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.28;
+  margin-bottom: 2px;
+}
+
 .tagline {
-  font-size: 9pt;
+  font-size: 8.75pt;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .photo-wrap {
@@ -78,11 +80,12 @@ body {
 }
 
 .photo {
-  width: 64px;
-  height: 64px;
+  width: 108px;
+  height: 108px;
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid var(--border);
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
 /* Contact bar */
@@ -90,9 +93,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 0;
-  margin-bottom: 14px;
-  font-size: 8.5pt;
+  gap: 2px 0;
+  margin-bottom: 9px;
+  padding: 5px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 8.25pt;
   color: var(--text);
 }
 
@@ -106,113 +113,129 @@ body {
   width: 10px;
   height: 10px;
   flex-shrink: 0;
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 .contact-sep {
   color: var(--border);
-  margin: 0 8px;
+  margin: 0 7px;
   user-select: none;
 }
 
 /* Sections */
 .section {
-  margin-bottom: 14px;
+  margin-bottom: 9px;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .section-compact {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .section-title {
-  font-size: 9pt;
+  font-size: 8.75pt;
   font-weight: 700;
   color: var(--navy);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 7px;
-  padding-bottom: 3px;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+  padding-bottom: 2px;
   border-bottom: 1px solid var(--border);
   page-break-after: avoid;
   break-after: avoid;
 }
 
-.section-title-continued {
-  visibility: hidden;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  overflow: hidden;
-}
-
 /* Summary */
 .summary {
-  font-size: 9pt;
+  font-size: 8.75pt;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-/* Skills */
-.skills-list {
-  display: flex;
-  flex-direction: column;
+/* Skills — compact cards */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 5px;
 }
 
-.skill-row {
-  display: flex;
-  gap: 8px;
-  font-size: 8.75pt;
-  line-height: 1.4;
-}
-
-.skill-label {
-  flex: 0 0 108px;
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.skill-values {
-  flex: 1;
-  color: var(--text);
-}
-
-/* Experience — LinkedIn-style */
-.job {
-  margin-bottom: 12px;
-  page-break-inside: avoid;
+.skill-card {
+  padding: 4px 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  border-radius: 4px;
   break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.skill-card-title {
+  font-size: 7.75pt;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1px;
+}
+
+.skill-card-values {
+  font-size: 8.25pt;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+/* Experience */
+.experience-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.job {
+  margin-bottom: 8px;
 }
 
 .job:last-child {
   margin-bottom: 0;
 }
 
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
 .job-company {
   font-size: 10pt;
   font-weight: 700;
   color: var(--navy);
-  line-height: 1.25;
-  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.job-type {
+  font-size: 8.25pt;
+  color: var(--muted);
+  margin-top: 1px;
 }
 
 .job-meta {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 12px;
-  margin-bottom: 5px;
+  gap: 10px;
+  margin-bottom: 3px;
 }
 
 .job-role {
-  font-size: 9pt;
-  font-weight: 500;
-  color: var(--muted);
+  font-size: 8.75pt;
+  font-weight: 600;
+  color: var(--text);
 }
 
 .job-dates {
-  font-size: 8.5pt;
+  font-size: 8pt;
   color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -220,45 +243,130 @@ body {
 }
 
 .role-block {
-  margin-bottom: 8px;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
-.role-block:last-child {
+/* Career growth timeline */
+.career-growth {
+  margin: 4px 0 6px;
+  padding: 6px 8px;
+  background: var(--accent-soft);
+  border: 1px solid #dbeafe;
+  border-radius: 6px;
+}
+
+.career-growth-title,
+.highlights-title {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.career-timeline {
+  position: relative;
+  padding-left: 2px;
+}
+
+.growth-item {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding-bottom: 5px;
   margin-bottom: 0;
 }
 
-.role-block-nested {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
+.growth-item:last-child {
+  padding-bottom: 0;
+}
+
+.growth-marker {
+  flex-shrink: 0;
+  width: 7px;
+  margin-top: 3px;
+  position: relative;
+}
+
+.growth-marker::before {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 1px solid #ffffff;
+}
+
+.growth-item:not(:last-child) .growth-marker::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 9px;
+  bottom: -6px;
+  width: 1px;
+  background: #93c5fd;
+}
+
+.growth-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.growth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 1px;
+}
+
+.growth-role {
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.growth-dates {
+  font-size: 7.75pt;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.growth-summary {
+  font-size: 8pt;
+  color: var(--text);
+  line-height: 1.32;
+}
+
+.current-highlights {
+  margin-top: 4px;
 }
 
 .job-bullets {
-  margin-left: 14px;
-  font-size: 8.75pt;
+  margin-left: 13px;
+  font-size: 8.25pt;
   color: var(--text);
   list-style-type: disc;
 }
 
 .job-bullets li {
-  margin-bottom: 2px;
-  line-height: 1.42;
-  padding-left: 2px;
+  margin-bottom: 1px;
+  line-height: 1.36;
+  padding-left: 1px;
 }
 
 .job-bullets li::marker {
-  color: var(--muted);
-  font-size: 0.85em;
-}
-
-.job-current {
-  page-break-inside: avoid;
-  break-inside: avoid;
+  color: var(--accent);
+  font-size: 0.8em;
 }
 
 /* Education */
 .education-item {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .education-item:last-child {
@@ -269,33 +377,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
 }
 
 .education-institution {
-  font-size: 9.5pt;
+  font-size: 9pt;
   font-weight: 600;
   color: var(--navy);
-  line-height: 1.3;
+  line-height: 1.28;
 }
 
 .education-degree {
-  font-size: 8.75pt;
+  font-size: 8.25pt;
   color: var(--muted);
   margin-top: 1px;
 }
 
 /* Inline lists */
 .inline-list {
-  font-size: 8.75pt;
+  font-size: 8.25pt;
   color: var(--text);
-  line-height: 1.45;
+  line-height: 1.38;
 }
 
 /* Page breaks */
-.page-break-after {
-  page-break-after: always;
-  break-after: page;
+.page-break-before {
+  page-break-before: always;
+  break-before: page;
 }
 
 @media print {
@@ -308,24 +416,23 @@ body {
     break-after: avoid;
   }
 
-  .section-experience .section-title:not(.section-title-continued) {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
+  .section,
+  .experience-item,
+  .role-block,
   .job,
-  .education-item {
-    page-break-inside: avoid;
+  .education-item,
+  .skill-card {
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .job-bullets {
-    page-break-inside: avoid;
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  .section-skills {
-    page-break-inside: avoid;
+  .career-growth {
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
