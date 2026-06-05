@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ cv.name }} — Resume</title>
+    <style>
+      {{ styles }}
+    </style>
+  </head>
+  <body>
+    <div class="cv">
+      <!-- Page 1 -->
+      <header class="header">
+        <div class="header-text">
+          <h1 class="name">{{ cv.name }}</h1>
+          <p class="title">{{ cv.title | replace('\n', '<br />') | safe }}</p>
+          {% if cv.subtitle %}
+          <p class="subtitle">{{ cv.subtitle }}</p>
+          {% endif %}
+        </div>
+        {% if photo %}
+        <div class="photo-wrap">
+          <img class="photo" src="{{ photo }}" alt="{{ cv.name }}" />
+        </div>
+        {% endif %}
+      </header>
+
+      <section class="section contact-section">
+        <h2 class="section-title">Contact</h2>
+        <ul class="contact-list">
+          {% if cv.location %}
+          <li class="contact-item">
+            {% if icons.location %}
+            <img class="contact-icon" src="{{ icons.location }}" alt="" />
+            {% endif %}
+            <span>{{ cv.location }}</span>
+          </li>
+          {% endif %} {% if cv.phone %}
+          <li class="contact-item">
+            {% if icons.phone %}
+            <img class="contact-icon" src="{{ icons.phone }}" alt="" />
+            {% endif %}
+            <span>{{ cv.phone }}</span>
+          </li>
+          {% endif %} {% if cv.email %}
+          <li class="contact-item">
+            {% if icons.email %}
+            <img class="contact-icon" src="{{ icons.email }}" alt="" />
+            {% endif %}
+            <span>{{ cv.email }}</span>
+          </li>
+          {% endif %} {% if cv.has_github %}
+          <li class="contact-item">
+            {% if icons.github %}
+            <img class="contact-icon" src="{{ icons.github }}" alt="" />
+            {% endif %}
+            <span>{{ cv.github | strip_url }}</span>
+          </li>
+          {% endif %} {% if cv.has_linkedin %}
+          <li class="contact-item">
+            {% if icons.linkedin %}
+            <img class="contact-icon" src="{{ icons.linkedin }}" alt="" />
+            {% endif %}
+            <span>{{ cv.linkedin | strip_url }}</span>
+          </li>
+          {% endif %}
+        </ul>
+      </section>
+
+      {% if cv.summary %}
+      <section class="section">
+        <h2 class="section-title">Professional Summary</h2>
+        <p class="summary">{{ cv.summary }}</p>
+      </section>
+      {% endif %} {% if cv.skills %}
+      <section class="section">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+          {% for group in skill_groups %} {% if cv.skills.get(group) %}
+          <div class="skill-group">
+            <h3 class="skill-group-title">{{ group }}</h3>
+            <p class="skill-list">{{ cv.skills[group] | join(' · ') }}</p>
+          </div>
+          {% endif %} {% endfor %} {% for group, items in cv.skills.items() %}
+          {% if group not in skill_groups and items %}
+          <div class="skill-group">
+            <h3 class="skill-group-title">{{ group }}</h3>
+            <p class="skill-list">{{ items | join(' · ') }}</p>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+      </section>
+      {% endif %} {% if cv.current_position %}
+      <section class="section page-break-after">
+        <h2 class="section-title">Current Position</h2>
+        <article class="experience-item current">
+          <div class="experience-header">
+            <div>
+              <h3 class="company">{{ cv.current_position.company }}</h3>
+              <p class="role">{{ cv.current_position.role }}</p>
+            </div>
+            <span class="dates"
+              >{{ cv.current_position.start_date |
+              date_range(cv.current_position.end_date) }}</span
+            >
+          </div>
+          {% if cv.current_position.responsibilities %}
+          <ul class="responsibilities">
+            {% for item in cv.current_position.responsibilities %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </article>
+      </section>
+      {% endif %}
+
+      <!-- Page 2 -->
+      {% if cv.previous_experience %}
+      <section class="section">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="timeline">
+          {% for job in cv.previous_experience %}
+          <article class="experience-item timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="experience-header">
+                <div>
+                  <h3 class="company">{{ job.company }}</h3>
+                  <p class="role">{{ job.role }}</p>
+                </div>
+                <span class="dates"
+                  >{{ job.start_date | date_range(job.end_date) }}</span
+                >
+              </div>
+              {% if job.responsibilities %}
+              <ul class="responsibilities">
+                {% for item in job.responsibilities %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %} {% if cv.education %}
+      <section class="section">
+        <h2 class="section-title">Education</h2>
+        {% for edu in cv.education %}
+        <article class="education-item">
+          <div class="education-header">
+            <div>
+              <h3 class="institution">{{ edu.institution }}</h3>
+              <p class="degree">
+                {{ edu.degree }}{% if edu.field %} — {{ edu.field }}{% endif %}
+              </p>
+            </div>
+            {% if edu.start_date or edu.end_date %}
+            <span class="dates"
+              >{{ edu.start_date | date_range(edu.end_date) }}</span
+            >
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+      {% endif %} {% if cv.languages %}
+      <section class="section">
+        <h2 class="section-title">Languages</h2>
+        <ul class="languages-list">
+          {% for lang in cv.languages %}
+          <li><strong>{{ lang.name }}</strong> — {{ lang.level }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %} {% if cv.certifications %}
+      <section class="section">
+        <h2 class="section-title">Certifications &amp; Tools</h2>
+        <ul class="cert-list">
+          {% for cert in cv.certifications %}
+          <li>{{ cert }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+    </div>
+  </body>
+</html>
