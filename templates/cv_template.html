@@ -21,11 +21,6 @@
         "Mobile Applications",
         "Business Process Automation"
       ] %}
-      {% set integrations = [
-        {"label": "Communication", "tools": ["Telegram", "Instagram", "Facebook Messenger", "Viber", "SendGrid", "Cityhost", "EmailJS"]},
-        {"label": "Telephony", "tools": ["UniTalk", "TurboSMS", "Ringostat"]},
-        {"label": "Meetings", "tools": ["Zoom"]}
-      ] %}
 
       {# 1. Header — info left, photo right #}
       <header class="header{% if not photo %} header-no-photo{% endif %}">
@@ -75,7 +70,7 @@
           {% endif %}
         </div>
         {% if photo %}
-        <div class="header-photo">
+        <div class="photo-wrap">
           <img class="photo" src="{{ photo }}" alt="{{ cv.name }}" />
         </div>
         {% endif %}
@@ -130,22 +125,7 @@
       </section>
       {% endif %}
 
-      {# 6. Integrations #}
-      <section class="section">
-        <h2 class="section-title">Integrations</h2>
-        <div class="section-body">
-          <div class="skills-compact">
-            {% for group in integrations %}
-            <div class="skill-row">
-              <span class="skill-label">{{ group.label }}</span>
-              <span class="skill-value">{{ group.tools | join(' · ') }}</span>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-
-      {# 7. Languages #}
+      {# 6. Languages #}
       {% if cv.languages %}
       <section class="section section-compact">
         <h2 class="section-title">Languages</h2>
@@ -159,7 +139,7 @@
       </section>
       {% endif %}
 
-      {# 8. Professional Experience — chronological, latest first #}
+      {# 7. Professional Experience — chronological, latest first #}
       {% if cv.experience %}
       <section class="section section-experience">
         <h2 class="section-title">Professional Experience</h2>
@@ -187,7 +167,7 @@
       </section>
       {% endif %}
 
-      {# 9. Education #}
+      {# 8. Education #}
       {% if cv.education %}
       <section class="section">
         <h2 class="section-title">Education</h2>

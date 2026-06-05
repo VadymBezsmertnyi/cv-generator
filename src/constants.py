@@ -14,6 +14,9 @@ SKILL_GROUPS: tuple[str, ...] = (
     "AI & Automation",
     "Analytics",
     "Testing",
+    "Communication",
+    "Telephony",
+    "Meetings",
 )
 
 # Contact icon filenames (stored under assets/icons/).
