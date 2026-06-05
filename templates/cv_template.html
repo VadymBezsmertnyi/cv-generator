@@ -9,61 +9,78 @@
   <body>
     <div class="cv">
 
-      {# ── Page 1 ── #}
-      <header class="header">
-        <div class="header-main">
+      {% set title_parts = cv.title.split(' / ') %}
+      {% set core_expertise = [
+        "CRM Systems",
+        "AI Workflow Automation",
+        "React Native Applications",
+        "Node.js Backend Development",
+        "Real-Time Communication",
+        "API Integrations",
+        "Payment Systems",
+        "Mobile Applications",
+        "Business Process Automation"
+      ] %}
+
+      {# ── Premium header ── #}
+      <header class="header{% if not photo %} header-no-photo{% endif %}">
+        <div class="header-body">
           <h1 class="name">{{ cv.name }}</h1>
-          <p class="headline">{{ cv.title | replace('\n', ' / ') }}</p>
-          {% if cv.subtitle %}
-          <p class="tagline">{{ cv.subtitle }}</p>
+          {% for part in title_parts %}
+          <p class="headline{% if loop.last %} headline-accent{% endif %}">{{ part | trim }}</p>
+          {% endfor %}
+
+          {% set has_contact = cv.location or cv.phone or cv.email or cv.has_github or cv.has_linkedin %}
+          {% if has_contact %}
+          <div class="header-contact">
+            {% if cv.location %}
+            <span class="contact-item">
+              {% if icons.location %}<img class="contact-icon" src="{{ icons.location }}" alt="" />{% endif %}
+              <span>{{ cv.location }}</span>
+            </span>
+            {% endif %}
+            {% if cv.phone %}
+            <span class="contact-item">
+              {% if icons.phone %}<img class="contact-icon" src="{{ icons.phone }}" alt="" />{% endif %}
+              <span>{{ cv.phone }}</span>
+            </span>
+            {% endif %}
+            {% if cv.email %}
+            <span class="contact-item">
+              {% if icons.email %}<img class="contact-icon" src="{{ icons.email }}" alt="" />{% endif %}
+              <span>{{ cv.email }}</span>
+            </span>
+            {% endif %}
+            {% if cv.has_github %}
+            <span class="contact-item">
+              {% if icons.github %}<img class="contact-icon" src="{{ icons.github }}" alt="" />{% endif %}
+              <span>{{ cv.github | strip_url }}</span>
+            </span>
+            {% endif %}
+            {% if cv.has_linkedin %}
+            <span class="contact-item">
+              {% if icons.linkedin %}<img class="contact-icon" src="{{ icons.linkedin }}" alt="" />{% endif %}
+              <span>{{ cv.linkedin | strip_url }}</span>
+            </span>
+            {% endif %}
+          </div>
           {% endif %}
         </div>
         {% if photo %}
-        <div class="photo-wrap">
+        <div class="header-photo">
           <img class="photo" src="{{ photo }}" alt="{{ cv.name }}" />
         </div>
         {% endif %}
       </header>
 
-      {% set has_contact = cv.location or cv.phone or cv.email or cv.has_github or cv.has_linkedin %}
-      {% if has_contact %}
-      <div class="contact-bar">
-        {% if cv.location %}
-        <span class="contact-item">
-          {% if icons.location %}<img class="contact-icon" src="{{ icons.location }}" alt="" />{% endif %}
-          <span>{{ cv.location }}</span>
-        </span>
-        {% endif %}
-        {% if cv.phone %}
-        <span class="contact-sep">|</span>
-        <span class="contact-item">
-          {% if icons.phone %}<img class="contact-icon" src="{{ icons.phone }}" alt="" />{% endif %}
-          <span>{{ cv.phone }}</span>
-        </span>
-        {% endif %}
-        {% if cv.email %}
-        <span class="contact-sep">|</span>
-        <span class="contact-item">
-          {% if icons.email %}<img class="contact-icon" src="{{ icons.email }}" alt="" />{% endif %}
-          <span>{{ cv.email }}</span>
-        </span>
-        {% endif %}
-        {% if cv.has_github %}
-        <span class="contact-sep">|</span>
-        <span class="contact-item">
-          {% if icons.github %}<img class="contact-icon" src="{{ icons.github }}" alt="" />{% endif %}
-          <span>{{ cv.github | strip_url }}</span>
-        </span>
-        {% endif %}
-        {% if cv.has_linkedin %}
-        <span class="contact-sep">|</span>
-        <span class="contact-item">
-          {% if icons.linkedin %}<img class="contact-icon" src="{{ icons.linkedin }}" alt="" />{% endif %}
-          <span>{{ cv.linkedin | strip_url }}</span>
-        </span>
-        {% endif %}
-      </div>
-      {% endif %}
+      <section class="section section-core">
+        <h2 class="section-title">Core Expertise</h2>
+        <div class="expertise-badges">
+          {% for item in core_expertise %}
+          <span class="expertise-badge">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </section>
 
       {% if cv.summary %}
       <section class="section">
@@ -75,20 +92,20 @@
       {% if cv.skills %}
       <section class="section section-skills">
         <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-grid">
+        <div class="skills-compact">
           {% for group in skill_groups %}
             {% if cv.skills.get(group) %}
-            <div class="skill-card">
-              <h3 class="skill-card-title">{{ group }}</h3>
-              <p class="skill-card-values">{{ cv.skills[group] | join(' · ') }}</p>
+            <div class="skill-row">
+              <span class="skill-label">{{ group }}</span>
+              <span class="skill-values">{{ cv.skills[group] | join(' · ') }}</span>
             </div>
             {% endif %}
           {% endfor %}
           {% for group, items in cv.skills.items() %}
             {% if group not in skill_groups and items %}
-            <div class="skill-card">
-              <h3 class="skill-card-title">{{ group }}</h3>
-              <p class="skill-card-values">{{ items | join(' · ') }}</p>
+            <div class="skill-row">
+              <span class="skill-label">{{ group }}</span>
+              <span class="skill-values">{{ items | join(' · ') }}</span>
             </div>
             {% endif %}
           {% endfor %}
@@ -99,48 +116,23 @@
       {% if cv.current_position %}
       <section class="section section-experience">
         <h2 class="section-title">Professional Experience</h2>
-        <article class="job job-current experience-item">
-          <div class="job-header">
-            <div>
+        <article class="job experience-block">
+          <div class="job-head">
+            <div class="job-head-left">
               <h3 class="job-company">{{ cv.current_position.company }}</h3>
+              <p class="job-role">{{ cv.current_position.role }}</p>
               {% if cv.current_position.employment_type %}
               <p class="job-type">{{ cv.current_position.employment_type }}</p>
               {% endif %}
             </div>
             <span class="job-dates">{{ cv.current_position.start_date | date_range(cv.current_position.end_date) }}</span>
           </div>
-
-          {% if cv.current_position.career_growth %}
-          <div class="career-growth">
-            <h4 class="career-growth-title">Career Growth</h4>
-            <div class="career-timeline">
-              {% for step in cv.current_position.career_growth %}
-              <div class="growth-item role-block">
-                <div class="growth-marker"></div>
-                <div class="growth-body">
-                  <div class="growth-header">
-                    <span class="growth-role">{{ step.role }}</span>
-                    <span class="growth-dates">{{ step.start_date | date_range(step.end_date) }}</span>
-                  </div>
-                  {% if step.summary %}
-                  <p class="growth-summary">{{ step.summary }}</p>
-                  {% endif %}
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-          {% endif %}
-
           {% if cv.current_position.responsibilities %}
-          <div class="current-highlights">
-            <h4 class="highlights-title">Key Contributions</h4>
-            <ul class="job-bullets">
-              {% for item in cv.current_position.responsibilities[:5] %}
-              <li>{{ item }}</li>
-              {% endfor %}
-            </ul>
-          </div>
+          <ul class="job-bullets">
+            {% for item in cv.current_position.responsibilities %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
           {% endif %}
         </article>
       </section>
@@ -149,16 +141,14 @@
       {# ── Page 2 ── #}
       {% if cv.previous_experience %}
       <section class="section section-experience page-break-before">
+        <h2 class="section-title">Previous Experience</h2>
         {% for company, roles in cv.previous_experience | groupby('company') %}
-        <article class="job job-previous experience-item">
-          {% if loop.first %}
-          <h2 class="section-title">Previous Experience</h2>
-          {% endif %}
+        <article class="job experience-block">
           <h3 class="job-company">{{ company }}</h3>
           {% for job in roles %}
-          <div class="role-block">
-            <div class="job-meta">
-              <span class="job-role">{{ job.role }}</span>
+          <div class="role-entry">
+            <div class="job-head">
+              <p class="job-role">{{ job.role }}</p>
               <span class="job-dates">{{ job.start_date | date_range(job.end_date) }}</span>
             </div>
             {% if job.responsibilities %}
@@ -179,7 +169,7 @@
       <section class="section">
         <h2 class="section-title">Education</h2>
         {% for edu in cv.education %}
-        <article class="education-item experience-item">
+        <article class="education-item experience-block">
           <div class="education-row">
             <div class="education-main">
               <h3 class="education-institution">{{ edu.institution }}</h3>

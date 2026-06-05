@@ -1,4 +1,4 @@
-/* Premium senior engineer resume — ATS-friendly, print-optimized */
+/* Premium 2026 senior engineer resume — ATS-friendly */
 
 :root {
   --navy: #0f172a;
@@ -6,14 +6,15 @@
   --muted: #64748b;
   --border: #e2e8f0;
   --surface: #f8fafc;
-  --accent: #2563eb;
-  --accent-soft: #eff6ff;
+  --accent: #7c6cf8;
+  --accent-soft: #f5f3ff;
+  --accent-muted: #ede9fe;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 @page {
   size: A4;
-  margin: 12mm 14mm;
+  margin: 10mm 12mm;
 }
 
 *,
@@ -25,14 +26,14 @@
 }
 
 html {
-  font-size: 9.25pt;
+  font-size: 9pt;
 }
 
 body {
   font-family: var(--font);
   color: var(--text);
   background: #ffffff;
-  line-height: 1.4;
+  line-height: 1.38;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -41,66 +42,71 @@ body {
   max-width: 100%;
 }
 
-/* Header */
+/* ── Premium header ── */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 16px;
-  margin-bottom: 8px;
+  align-items: stretch;
+  margin-bottom: 7px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--navy);
+  border-bottom: 2px solid var(--accent);
+}
+
+.header-no-photo {
+  grid-template-columns: 1fr;
+}
+
+.header-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
 }
 
 .name {
-  font-size: 19pt;
+  font-size: 20pt;
   font-weight: 700;
   color: var(--navy);
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  margin-bottom: 3px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 4px;
 }
 
 .headline {
   font-size: 10.5pt;
   font-weight: 600;
   color: var(--navy);
-  line-height: 1.28;
-  margin-bottom: 2px;
+  line-height: 1.25;
 }
 
-.tagline {
-  font-size: 8.75pt;
-  color: var(--muted);
-  line-height: 1.35;
+.headline-accent {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
-.photo-wrap {
-  flex-shrink: 0;
+.header-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 6px;
+  font-size: 8pt;
+  color: var(--text);
+}
+
+.header-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .photo {
-  width: 108px;
-  height: 108px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 12px;
-  border: 2px solid var(--border);
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-}
-
-/* Contact bar */
-.contact-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 0;
-  margin-bottom: 9px;
-  padding: 5px 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 8.25pt;
-  color: var(--text);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
 }
 
 .contact-item {
@@ -110,101 +116,125 @@ body {
 }
 
 .contact-icon {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
-.contact-sep {
-  color: var(--border);
-  margin: 0 7px;
-  user-select: none;
-}
-
-/* Sections */
+/* ── Sections ── */
 .section {
-  margin-bottom: 9px;
+  margin-bottom: 7px;
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
 .section-compact {
-  margin-bottom: 7px;
+  margin-bottom: 5px;
+}
+
+.section-core {
+  margin-bottom: 6px;
 }
 
 .section-title {
-  font-size: 8.75pt;
+  font-size: 8.5pt;
   font-weight: 700;
   color: var(--navy);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 5px;
+  letter-spacing: 0.07em;
+  margin-bottom: 4px;
   padding-bottom: 2px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent-muted);
   page-break-after: avoid;
   break-after: avoid;
 }
 
-/* Summary */
-.summary {
-  font-size: 8.75pt;
-  color: var(--text);
-  line-height: 1.45;
+/* ── Core expertise badges ── */
+.expertise-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
-/* Skills — compact cards */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px;
-}
-
-.skill-card {
-  padding: 4px 7px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--accent);
-  border-radius: 4px;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.skill-card-title {
+.expertise-badge {
+  display: inline-block;
+  padding: 2px 8px;
   font-size: 7.75pt;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--navy);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 1px;
-}
-
-.skill-card-values {
-  font-size: 8.25pt;
-  color: var(--text);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-muted);
+  border-radius: 4px;
   line-height: 1.35;
 }
 
-/* Experience */
-.experience-item {
+/* ── Summary ── */
+.summary {
+  font-size: 8.5pt;
+  color: var(--text);
+  line-height: 1.44;
+}
+
+/* ── Skills — compact rows ── */
+.skills-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 6px;
+  font-size: 8pt;
+  line-height: 1.32;
+  padding: 2px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.skill-row:last-child {
+  border-bottom: none;
+}
+
+.skill-label {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-top: 1px;
+}
+
+.skill-values {
+  color: var(--text);
+}
+
+/* ── Experience ── */
+.experience-block {
   break-inside: avoid;
   page-break-inside: avoid;
+  margin-bottom: 7px;
 }
 
-.job {
-  margin-bottom: 8px;
-}
-
-.job:last-child {
+.experience-block:last-child {
   margin-bottom: 0;
 }
 
-.job-header {
+.job {
+  margin-bottom: 0;
+}
+
+.job-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+}
+
+.job-head-left {
+  min-width: 0;
 }
 
 .job-company {
@@ -212,26 +242,20 @@ body {
   font-weight: 700;
   color: var(--navy);
   line-height: 1.2;
-}
-
-.job-type {
-  font-size: 8.25pt;
-  color: var(--muted);
-  margin-top: 1px;
-}
-
-.job-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 1px;
 }
 
 .job-role {
   font-size: 8.75pt;
-  font-weight: 600;
-  color: var(--text);
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.job-type {
+  font-size: 7.75pt;
+  color: var(--muted);
+  margin-top: 1px;
 }
 
 .job-dates {
@@ -240,114 +264,21 @@ body {
   white-space: nowrap;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
+  padding-top: 1px;
 }
 
-.role-block {
+.role-entry {
+  margin-top: 5px;
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
-/* Career growth timeline */
-.career-growth {
-  margin: 4px 0 6px;
-  padding: 6px 8px;
-  background: var(--accent-soft);
-  border: 1px solid #dbeafe;
-  border-radius: 6px;
-}
-
-.career-growth-title,
-.highlights-title {
-  font-size: 8pt;
-  font-weight: 700;
-  color: var(--navy);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 4px;
-}
-
-.career-timeline {
-  position: relative;
-  padding-left: 2px;
-}
-
-.growth-item {
-  position: relative;
-  display: flex;
-  gap: 8px;
-  padding-bottom: 5px;
-  margin-bottom: 0;
-}
-
-.growth-item:last-child {
-  padding-bottom: 0;
-}
-
-.growth-marker {
-  flex-shrink: 0;
-  width: 7px;
-  margin-top: 3px;
-  position: relative;
-}
-
-.growth-marker::before {
-  content: "";
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 1px solid #ffffff;
-}
-
-.growth-item:not(:last-child) .growth-marker::after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 9px;
-  bottom: -6px;
-  width: 1px;
-  background: #93c5fd;
-}
-
-.growth-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.growth-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 1px;
-}
-
-.growth-role {
-  font-size: 8.5pt;
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.growth-dates {
-  font-size: 7.75pt;
-  color: var(--muted);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.growth-summary {
-  font-size: 8pt;
-  color: var(--text);
-  line-height: 1.32;
-}
-
-.current-highlights {
-  margin-top: 4px;
+.role-entry:first-of-type {
+  margin-top: 2px;
 }
 
 .job-bullets {
-  margin-left: 13px;
+  margin: 2px 0 0 14px;
   font-size: 8.25pt;
   color: var(--text);
   list-style-type: disc;
@@ -355,22 +286,18 @@ body {
 
 .job-bullets li {
   margin-bottom: 1px;
-  line-height: 1.36;
+  line-height: 1.34;
   padding-left: 1px;
 }
 
 .job-bullets li::marker {
   color: var(--accent);
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
-/* Education */
+/* ── Education ── */
 .education-item {
-  margin-bottom: 6px;
-}
-
-.education-item:last-child {
-  margin-bottom: 0;
+  margin-bottom: 4px;
 }
 
 .education-row {
@@ -381,26 +308,26 @@ body {
 }
 
 .education-institution {
-  font-size: 9pt;
+  font-size: 8.75pt;
   font-weight: 600;
   color: var(--navy);
   line-height: 1.28;
 }
 
 .education-degree {
-  font-size: 8.25pt;
+  font-size: 8pt;
   color: var(--muted);
   margin-top: 1px;
 }
 
-/* Inline lists */
+/* ── Inline lists ── */
 .inline-list {
   font-size: 8.25pt;
   color: var(--text);
-  line-height: 1.38;
+  line-height: 1.36;
 }
 
-/* Page breaks */
+/* ── Page breaks ── */
 .page-break-before {
   page-break-before: always;
   break-before: page;
@@ -416,12 +343,9 @@ body {
     break-after: avoid;
   }
 
-  .section,
-  .experience-item,
-  .role-block,
-  .job,
-  .education-item,
-  .skill-card {
+  .experience-block,
+  .role-entry,
+  .job-head {
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -431,7 +355,7 @@ body {
     page-break-inside: avoid;
   }
 
-  .career-growth {
+  .header {
     break-inside: avoid;
     page-break-inside: avoid;
   }
