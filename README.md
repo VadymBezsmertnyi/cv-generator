@@ -18,7 +18,7 @@ Generate modern, ATS-friendly PDF resumes from JSON data using HTML templates, J
 cv-generator/
 ├── data/
 │   ├── cv.json          # Resume data
-│   └── photo.jpg        # Profile photo (optional)
+│   └── photo.jpeg        # Profile photo (optional)
 ├── assets/icons/        # Contact SVG icons
 ├── templates/
 │   ├── cv_template.html
@@ -69,7 +69,7 @@ cv-generator/
 ## Usage
 
 1. Edit `data/cv.json` with your resume information.
-2. Optionally replace `data/photo.jpg` with your profile photo.
+2. Optionally replace `data/photo.jpeg` with your profile photo.
 3. Run the generator:
 
    ```bash
@@ -139,12 +139,12 @@ Additional custom groups in `skills` are rendered after the standard ones.
 
 ## Optional Fields
 
-| Field      | Behavior if missing        |
-|------------|----------------------------|
-| `photo.jpg`| Photo block hidden         |
-| `linkedin` | LinkedIn icon/link hidden  |
-| `github`   | GitHub icon/link hidden    |
-| `subtitle` | Subtitle line hidden       |
+| Field        | Behavior if missing       |
+| ------------ | ------------------------- |
+| `photo.jpeg` | Photo block hidden        |
+| `linkedin`   | LinkedIn icon/link hidden |
+| `github`     | GitHub icon/link hidden   |
+| `subtitle`   | Subtitle line hidden      |
 
 ## Troubleshooting
 

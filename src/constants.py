@@ -29,7 +29,7 @@ PDF_PRINT_BACKGROUND: bool = True
 
 # Default paths relative to project root.
 DEFAULT_DATA_FILE: str = "data/cv.json"
-DEFAULT_PHOTO_FILE: str = "data/photo.jpg"
+DEFAULT_PHOTO_FILE: str = "data/photo.jpeg"
 DEFAULT_TEMPLATE: str = "templates/cv_template.html"
 DEFAULT_STYLES: str = "templates/styles.css"
 DEFAULT_OUTPUT_DIR: str = "output"
