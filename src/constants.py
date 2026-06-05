@@ -10,6 +10,7 @@ SKILL_GROUPS: tuple[str, ...] = (
     "Databases",
     "Cloud & DevOps",
     "AI & Automation",
+    "Analytics",
     "Testing",
 )
 

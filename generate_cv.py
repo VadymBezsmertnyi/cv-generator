@@ -45,6 +45,9 @@ class CVGenerator:
             icons_dir=paths.icons_dir,
         )
 
+        preview_path = paths.output_dir / "preview.html"
+        preview_path.write_text(html, encoding="utf-8")
+
         output_path = paths.output_dir / cv.output_pdf_name()
         self._pdf_generator.generate_from_html(html, output_path)
         return output_path
@@ -55,7 +58,9 @@ def main() -> int:
     try:
         generator = CVGenerator.from_project_root()
         output_path = generator.generate()
+        preview_path = output_path.parent / "preview.html"
         print(f"CV generated successfully: {output_path}")
+        print(f"HTML preview saved: {preview_path}")
         return 0
     except FileNotFoundError as exc:
         print(f"Error: {exc}", file=sys.stderr)
